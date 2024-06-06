@@ -11,12 +11,12 @@ def test_create_task():
 if __name__ == "__main__":
     test_create_task()
 
-#Test tarea completada
+#Test tarea completada s
 def test_complete_task():
     myTask = Task('Completed')
     myTask.complete()
     assert myTask.completed == True
 
 
-# if __name__ == "__main__":
+# if __name__ == "__main__": 
 #     test_complete_task()

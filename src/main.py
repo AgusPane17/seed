@@ -53,7 +53,7 @@ task_manager.add_task(task1)
 # Completar la tarea
 task_manager.complete_task(task1)
 
-#Traer la lista de tareas
+#Traer la lista de tareas 
 task_manager.get_tasks()
 
 #Marcar la tarea como completa
