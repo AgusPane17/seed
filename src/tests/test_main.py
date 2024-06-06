@@ -14,7 +14,9 @@ if __name__ == "__main__":
 #Test tarea completada
 def test_complete_task():
     myTask = Task('Completed')
-    print(myTask.completed)
-#
-if __name__ == "__main__":
-    test_complete_task()
+    myTask.complete()
+    assert myTask.completed == True
+
+
+# if __name__ == "__main__":
+#     test_complete_task()

@@ -24,7 +24,7 @@ class TaskManager:
     #Metodo para mostrar las tareas de la lista, las enumera
     def get_tasks(self):
         for idx, task in enumerate(self.tasks, start=1):
-            print(f"Task {idx}: {task.description}")
+            print(f"Task {idx}: {task.description}, Complete: {task.completed}")
 
 #Constructor de la clase task, se llama cuando se crea una instancia de task 
 #inicializa la descripcion de la tarea
@@ -39,11 +39,10 @@ class Task:
         self.completed = True
 
 
-
 #Crear instancia de TaskManager
 task_manager = TaskManager()
 
-# Crear una instancia de Task
+# Crear instancias de Task
 task1 = Task("Aprender Python")
 
 task2 = Task("Aprender Java")
