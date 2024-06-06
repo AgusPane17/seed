@@ -1,3 +1,5 @@
+from datetime import datetime
+
 # Constructor, inicializa una llamada vacia a "task" para almacenar tareas
 class TaskManager:
     def __init__(self):
@@ -24,14 +26,18 @@ class TaskManager:
     #Metodo para mostrar las tareas de la lista, las enumera
     def get_tasks(self):
         for idx, task in enumerate(self.tasks, start=1):
-            print(f"Task {idx}: {task.description}, Complete: {task.completed}")
+            print(f"Task {idx}: {task.description}, Complete: {task.completed}, Fecha de vencimiento: {task.due_date}")
 
 #Constructor de la clase task, se llama cuando se crea una instancia de task 
-#inicializa la descripcion de la tarea
-#inicializa completed como falso e imprime el mensaje de que fue creada la tarea
+#inicializa todos los atributos de la tarea
 class Task:
-    def __init__(self, description):
+    def __init__(self, nameTag, description, priority, due_date):
+        self.nameTag = nameTag
         self.description = description
+        self.priority = priority.upper()
+        if self.priority not in ['A', 'B', 'C']:
+            raise ValueError ("La prioridad debe ser: A, B o C")
+        self.due_date = datetime.strptime(due_date,"%Y-%m-%d")
         self.completed = False
         print('task create')
 
@@ -43,9 +49,9 @@ class Task:
 task_manager = TaskManager()
 
 # Crear instancias de Task
-task1 = Task("Aprender Python")
+task1 = Task(1,"Aprender Python", "A", "2024-06-10")
 
-task2 = Task("Aprender Java")
+task2 = Task(2, "Aprender Java", "B", "2024-06-08")
 
 # Añadir la tarea al TaskManager
 task_manager.add_task(task1)
