@@ -12,6 +12,7 @@ class TaskManager:
 #Método que toma una tarea (task) como argumento e intenta eliminarla de la lista tasks.
     def remove_task(self, task):
         if task in self.tasks:
+            cheese = 'Cheese'
             if task.completed:
                 self.tasks.remove(task)
             else:
