@@ -4,6 +4,7 @@ class TaskManager:
 
     def add_task(self, task):
         self.tasks.append(task)
+        
 
     def remove_task(self, task):
         if task in self.tasks:
@@ -16,12 +17,21 @@ class TaskManager:
             task.complete()
         else:
             raise ValueError("Task not found")
+    
+    def get_list_task(self):
+        for task in self.tasks:
+            print(task.nameTask)
+        
+
 
 class Task:
-    def __init__(self, description):
+    def __init__(self,nameTask, description):
+        self.nameTask = nameTask
         self.description = description
         self.completed = False
         print('task create')
 
     def complete(self):
         self.completed = True
+
+
