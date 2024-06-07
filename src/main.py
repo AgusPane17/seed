@@ -14,6 +14,7 @@ class TaskManager:
     def remove_task(self, task):
         cheese = 'Cheese' 
         if task in self.tasks:
+            cheese = 'Cheese'
             if task.completed:
                 self.tasks.remove(task)
             else:
