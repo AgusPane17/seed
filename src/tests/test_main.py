@@ -8,6 +8,8 @@ def test_create_task():
     myTask = Task('Task1')
     print(myTask.nameTag)
 
+
+
 if __name__ == "__main__":
     test_create_task()
 
@@ -15,9 +17,9 @@ if __name__ == "__main__":
 def test_complete_task():
     myTask = Task('Completed')
     myTask.complete()
-    assert myTask.completed == True
     print(myTask.completed)
+    assert myTask.completed == True
 
 
-# if __name__ == "__main__": 
-#     test_complete_task()
+if __name__ == "__main__": 
+    test_complete_task()
