@@ -8,8 +8,6 @@ def test_create_task():
     myTask = Task('Task1')
     print(myTask.nameTag)
 
-
-
 if __name__ == "__main__":
     test_create_task()
 
