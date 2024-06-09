@@ -22,7 +22,7 @@ def test_create_task(x, y, a, b):
 
 
 @pytest.mark.parametrize(
-    # "x, y, a, b, expected_exception, expected_message", 
+    "x, y, a, b, expected_exception, expected_message", 
 [
     ("", "Descripción2", "B", "2024-01-15", ValueError, "El nombre de la tarea no puede estar vacío"),
     ("Tarea 2", "Descripción2", "A", "24-01-15", ValueError, "Formato de fecha incorrecto, debe ser AAAA-MM-DD"),
