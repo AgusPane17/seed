@@ -1,17 +1,16 @@
 from datetime import datetime
 
-# Constructor, inicializa una llamada vacia a "task" para almacenar tareas
+# Constructor, inicializa una llamada vacía a "task" para almacenar tareas
 class TaskManager:
     def __init__(self):
         self.tasks = []
 
-#Método que toma una tarea como argumento y la añade a la lista tasks
+    # Método que toma una tarea como argumento y la añade a la lista tasks
     def add_task(self, task):
         self.tasks.append(task)
-        
 
-#Método que toma una tarea (task) como argumento e intenta eliminarla de la lista tasks.
-    def remove_task(self, task): 
+    # Método que toma una tarea (task) como argumento e intenta eliminarla de la lista tasks.
+    def remove_task(self, task):
         if task in self.tasks:
             if task.completed:
                 self.tasks.remove(task)
@@ -19,72 +18,85 @@ class TaskManager:
             else:
                 raise ValueError("Task incompleted")
         else:
-            ValueError("Task no found")
+            raise ValueError("Task no found") #Solo agregar el raise para que levante la excepcion
 
-#Metodo toma una tarea, si esta en la lista llama a complete para marcarla como completa, si no larga un mensaje de error
+    # Método que toma una tarea, si está en la lista llama a complete para marcarla como completa, si no lanza un mensaje de error
     def complete_task(self, task):
         if task in self.tasks:
             task.complete()
         else:
             raise ValueError("Task not found")
         
-    #Metodo para mostrar las tareas de la lista, las enumera
+    # Método para mostrar las tareas de la lista, las enumera
     def get_tasks(self):
         for idx, task in enumerate(self.tasks, start=1):
             task_info = f"Task {idx}: {task.description}, Complete: {task.completed}"
             if hasattr(task, 'due_date'):
                 task_info += f", Due date: {task.due_date}"
-                print(task_info)
+            print(task_info)
 
-#Constructor de la clase task, se llama cuando se crea una instancia de task 
-#inicializa todos los atributos de la tarea
+    # Método para definir las tareas vencidas
+    def get_overdue_tasks(self):
+        overdue_tasks = [task for task in self.tasks if task.is_overdue()]
+        print(overdue_tasks)
+        return overdue_tasks
+    
+    # Método para calcular cuánto le falta a una tarea por vencer
+    def time_left_before_due(self):
+        if not self.tasks:
+            return "No tasks in the task manager"
+        
+        days_left = []
+        for task in self.tasks:  
+            tasks_days_left = f"Task: {task.nameTask}, Days before due date: {task.time_left_before_due()}"
+            days_left.append(tasks_days_left)
+        return days_left
+
+# Constructor de la clase task, se llama cuando se crea una instancia de task 
+# inicializa todos los atributos de la tarea
 class Task:
     def __init__(self, nameTask, description=None, priority=None, due_date=None):
-        if nameTask == '':
-            raise ValueError("El nombre de la tarea no puede ser una cadena vacía.")
+        if not nameTask:
+            raise ValueError("El nombre de la tarea no puede estar vacío")
         
         self.nameTask = nameTask
         self.description = description
-        
+
         if priority is not None and priority not in ['A', 'B', 'C']:
             raise ValueError("La prioridad debe ser: A, B o C")
         self.priority = priority
-        
+
         if due_date is not None:
-            self.due_date = datetime.strptime(due_date, "%Y-%m-%d")
+            try:
+                self.due_date = datetime.strptime(due_date, "%Y-%m-%d").date()
+            except ValueError:
+                raise ValueError("Formato de fecha incorrecto, debe ser AAAA-MM-DD")
         else:
             self.due_date = None
 
         self.completed = False
-        print('Task created')
+        print('task created')
 
     def complete(self):
         self.completed = True
 
+    def is_overdue(self):
+        if self.due_date and datetime.now().date() > self.due_date:
+            return True
+        return False
 
+    #funcion para mostrar el objeto Task en el test
+    def __repr__(self):
+        return f"Task(nameTask= {self.nameTask}, description= {self.description}, priority= {self.priority}, due_date= {self.due_date}, completed= {self.completed})"
 
-#Crear instancia de TaskManager
-task_manager = TaskManager()
+    #Metodo para calcular cuanto le falta por vencer a una tarea
+    def time_left_before_due(self):
+        if self.due_date is None:
+            return "No due date set"
+        now = datetime.now().date()
+        print(self.due_date)
+        print(now)
+        time_left = self.due_date - now
+        #Busco los dias de diferencia
 
-# Crear instancias de Task
-task1 = Task("Aprender Python", "A", None,"2024-06-10")
-
-task2 = Task("Aprender Java", "B", None,"2024-06-08")
-
-# Añadir la tarea al TaskManager
-task_manager.add_task(task1)
-
-task_manager.add_task(task2)
-
-# Completar la tarea
-task_manager.complete_task(task1)
-
-#Marcar la tarea como completa
-task1.complete()
-
-task_manager.remove_task(task1)
-
-#Traer la lista de tareas 
-task_manager.get_tasks()
-
-
+        return f"{time_left.days}"
