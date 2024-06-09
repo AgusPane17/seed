@@ -75,7 +75,6 @@ class Task:
             self.due_date = None
 
         self.completed = False
-        print('task created')
 
     def complete(self):
         self.completed = True
@@ -94,8 +93,6 @@ class Task:
         if self.due_date is None:
             return "No due date set"
         now = datetime.now().date()
-        print(self.due_date)
-        print(now)
         time_left = self.due_date - now
         #Busco los dias de diferencia
 

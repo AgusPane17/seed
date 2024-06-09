@@ -19,6 +19,12 @@ def test_create_task(x, y, a, b):
     assert myTask.priority == a
     assert myTask.due_date == datetime.strptime(b, "%Y-%m-%d").date()
     assert myTask.completed == False
+    if myTask is not None:
+        print(f"""La tarea {myTask.nameTask} fue creada con exito:
+    Decripcion: {myTask.description}
+    Prioridad: {myTask.priority}
+    Completada: {myTask.completed}
+    Fecha de finalizacion: {myTask.due_date}""")
 
 
 @pytest.mark.parametrize(
@@ -31,14 +37,17 @@ def test_create_task_invalid(x, y, a, b, expected_exception, expected_message):
     with pytest.raises(expected_exception) as excinfo:
         myTask = Task(x, y, a, b)
     assert str(excinfo.value) == expected_message
+    print(f"Este test muestra que su objeto no fue creado porque: {expected_message}")
+    
 
 #PAULA
 #Test tarea completada
 def test_complete_task():
     myTask = Task('Completed')
     myTask.complete()
-    print(myTask.completed)
     assert myTask.completed == True
+    if myTask.completed == True : 
+        print("La tarea se marco como completada")
 
 #Test tareas vencidas
 def test_get_overdue_tasks():
@@ -82,8 +91,10 @@ def test_time_left_before_due(a, b, c, d, e, f, g, h, result):
     task_manager = TaskManager()
     task_manager.add_task(task1)
     task_manager.add_task(task2)
-    print(task_manager.time_left_before_due())
     assert task_manager.time_left_before_due() == result
+    tasks = task_manager.time_left_before_due()
+    for task in tasks:
+        print(task)
 
 #GIULI
 # Test para contar todas las tareas
