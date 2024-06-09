@@ -11,12 +11,11 @@ class TaskManager:
         
 
 #Método que toma una tarea (task) como argumento e intenta eliminarla de la lista tasks.
-    def remove_task(self, task):
-        cheese = 'Cheese' 
+    def remove_task(self, task): 
         if task in self.tasks:
-            cheese = 'Cheese'
             if task.completed:
                 self.tasks.remove(task)
+                print("Deleted task")
             else:
                 raise ValueError("Task incompleted")
         else:
@@ -40,30 +39,37 @@ class TaskManager:
 #Constructor de la clase task, se llama cuando se crea una instancia de task 
 #inicializa todos los atributos de la tarea
 class Task:
-    def __init__(self, nameTag, description=None, priority=None, due_date=None):
-        self.nameTag = nameTag
+    def __init__(self, nameTask, description=None, priority=None, due_date=None):
+        if nameTask == '':
+            raise ValueError("El nombre de la tarea no puede ser una cadena vacía.")
+        
+        self.nameTask = nameTask
         self.description = description
+        
+        if priority is not None and priority not in ['A', 'B', 'C']:
+            raise ValueError("La prioridad debe ser: A, B o C")
         self.priority = priority
-        if self.priority is not None and priority not in ['A', 'B', 'C']:
-            raise ValueError ("La prioridad debe ser: A, B o C")
-        if due_date is not None:  # Verificar si due_date se proporcionó
+        
+        if due_date is not None:
             self.due_date = datetime.strptime(due_date, "%Y-%m-%d")
         else:
             self.due_date = None
+
         self.completed = False
-        print('task create')
+        print('Task created')
 
     def complete(self):
         self.completed = True
+
 
 
 #Crear instancia de TaskManager
 task_manager = TaskManager()
 
 # Crear instancias de Task
-task1 = Task(1,"Aprender Python", "A", "2024-06-10")
+task1 = Task("Aprender Python", "A", None,"2024-06-10")
 
-task2 = Task(2, "Aprender Java", "B", "2024-06-08")
+task2 = Task("Aprender Java", "B", None,"2024-06-08")
 
 # Añadir la tarea al TaskManager
 task_manager.add_task(task1)
@@ -75,6 +81,8 @@ task_manager.complete_task(task1)
 
 #Marcar la tarea como completa
 task1.complete()
+
+task_manager.remove_task(task1)
 
 #Traer la lista de tareas 
 task_manager.get_tasks()
