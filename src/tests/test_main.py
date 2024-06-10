@@ -200,6 +200,39 @@ def test_create_task_without_description():
     assert tarea.description is None
     print("Tarea creada sin descripción correctamente.")
 
+#Zaca
+#Prueba para actualizar la descripcion de una tarea existente.
+def test_update_task_description():
+    admin = TaskManager()
+    tasky = Task(15, "Descripcion 1", "B", "2024-06-06")
+    admin.add_task(tasky)
+
+    nuevaDescrip = "Descripcion 2"
+    admin.update_task_description(tasky,nuevaDescrip) 
+
+    assert tasky.description == nuevaDescrip
+    print("La descripcion se actualizo de manera bacana.") 
+
+# Prueba para actualizar la descripcion de una tarea que no existe
+def test_update_notExist_description():
+    CM = TaskManager()
+    tarea = Task(16, "Tarea cabrona", "A", "2024-06-06")
+
+    with pytest.raises(ValueError, match="Task not found"):
+        CM.update_task_description(tarea,"Nueva descripcion")
+
+# Prueba para actualizar la descripcion con caracteres especiales
+def test_update_task_special_characters():
+    manejador = TaskManager()
+    tareita = Task("Tarea 1", "Descripción inicial", "A", "2024-12-31")
+    manejador.add_task(tareita)
+
+    new_description = "Nueva descripción: !@#$%^&*()"
+    manejador.update_task_description(tareita, new_description)
+
+    assert tareita.description == new_description
+
+
 
 if __name__ == "__main__":
     pytest.main()

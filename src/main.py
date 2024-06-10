@@ -52,6 +52,14 @@ class TaskManager:
             days_left.append(tasks_days_left)
         return days_left
 
+    #Método para actualizar la descripcion de una tarea
+    def update_task_description(self,task,newDescription):
+        if task in self.tasks:
+            task.description = newDescription
+            print(f"La descripción de la tarea {task.nameTask} fue actualizada con exito.")
+        else:   
+            raise ValueError("Task not found")
+              
 # Constructor de la clase task, se llama cuando se crea una instancia de task 
 # inicializa todos los atributos de la tarea
 class Task:
