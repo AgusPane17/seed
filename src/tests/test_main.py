@@ -82,7 +82,7 @@ def test_get_overdue_tasks():
 @pytest.mark.parametrize(
     "a, b, c, d, e, f, g, h, result",
     [
-        (1, "Aprender Java", "B", "2024-06-15", 2, "Aprender JS", "B", "2024-06-10", ['Task: 1, Days before due date: 6', 'Task: 2, Days before due date: 1'])
+        (1, "Aprender Java", "B", "2024-06-16", 2, "Aprender JS", "B", "2024-06-11", ['Task: 1, Days before due date: 6', 'Task: 2, Days before due date: 1'])
     ]
 )
 def test_time_left_before_due(a, b, c, d, e, f, g, h, result):
